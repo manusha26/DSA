@@ -1,0 +1,13 @@
+class Solution:
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        
+        def kadane(nums):
+            mc=mg=nums[0]
+            for i in range(1,len(nums)):
+                mc=max(nums[i],mc+nums[i])
+                mg=max(mg,mc)
+            return mg
+        max_linear=kadane(nums)
+        total=sum(nums)
+        wrap=total+kadane([-x for x in nums])
+        return max(max_linear,wrap) if wrap!=0 else max_linear
